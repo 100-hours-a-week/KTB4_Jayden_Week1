@@ -2,14 +2,11 @@ package org.example.repository;
 
 import org.example.data.account.Account;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AccountRepository {
 
-    private static Map<Long, Account> store = new HashMap<>();
+    private static final Map<Long, Account> store = new HashMap<>();
     private static long sequence = 0L;
 
     public Account save(Account account) {
@@ -26,10 +23,17 @@ public class AccountRepository {
         return new ArrayList<>(store.values());
     }
 
-    public void addMoney(long accountId, Long money) {
+    public void addMoney(Long accountId, Long money) {
         Account account = findById(accountId);
         Long amount = account.getAmount();
         account.setAmount(amount + money);
+        store.put(accountId, account);
+    }
+
+    public void withdraw(Long accountId, Long money) {
+        Account account = findById(accountId);
+        Long amount = account.getAmount();
+        account.setAmount(amount - money);
         store.put(accountId, account);
     }
 }

@@ -7,7 +7,7 @@ public class Controller {
 
     public void run() {
         System.out.println("원래 화면으로 돌아갑니다.");
-        returnHome();
+        returnHomeList();
     }
 
     public void shutDown() {
@@ -16,7 +16,7 @@ public class Controller {
 
     }
 
-    protected void returnHome() {
-        home.showList();
+    protected void returnHomeList() {
+        home.homeList();
     }
 }

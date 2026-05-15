@@ -2,22 +2,24 @@ package org.example;
 
 import org.example.controller.Controller;
 import org.example.adapter.ListAdapter;
+import org.example.utils.InputManager;
 
 import java.util.Scanner;
 
 public class Home {
     private final ListAdapter listAdapter = new ListAdapter();
-    private final Scanner sc = new Scanner(System.in);
+    private final InputManager inputManager = new InputManager();
+
 
 
     public void home() {
         System.out.println("====================================");
         System.out.println("안녕하세요. 반갑습니다.");
         System.out.println("Jayden 은행입니다.");
-        showList();
+        homeList();
     }
 
-    public void showList() {
+    public void homeList() {
         System.out.println("====================================");
         System.out.println();
         System.out.println("무엇을 도와드릴까요?");
@@ -31,15 +33,10 @@ public class Home {
         System.out.println();
         System.out.println();
 
-        int number = inputInt();
+        int number = inputManager.inputInt();
 
-        System.out.println(number + "번을 선택하셨습니다.");
+        System.out.println(number + " 번을 선택하셨습니다.");
         Controller controller = listAdapter.getController(number);
         controller.run();
-    }
-
-    private int inputInt() {
-        System.out.print("번호 선택: ");
-        return sc.nextInt();
     }
 }
