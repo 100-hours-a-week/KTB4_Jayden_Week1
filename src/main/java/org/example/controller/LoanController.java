@@ -10,12 +10,18 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoanController extends Controller{
     private final InputManager inputManager = new InputManager();
     private final LoanRepository loanRepository = new LoanRepository();
     private final Scanner sc = new Scanner(System.in);
+
+    private final Map<Integer, Runnable> methodMap = Map.of(
+            1, this::join,
+            2, this::getLoanSpec
+    );
 
     @Override
     public void run() {
@@ -36,14 +42,11 @@ public class LoanController extends Controller{
     }
 
     private void getService(int number) {
-        if (number == 1) {
-            join();
-        } else if (number == 2) {
-            getLoanSpec();
-        } else {
+        if (!methodMap.containsKey(number)) {
             System.out.println("잘못된 입력입니다.");
             run();
         }
+        methodMap.get(number).run();
     }
 
     private void join() {
@@ -114,8 +117,7 @@ public class LoanController extends Controller{
     }
 
     private Loan saveLoanProduct(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
-        Loan loan = new Loan(userName, productName, createdAt, duration, principal);
-        return loanRepository.save(loan);
+        return loanRepository.save(new Loan(userName, productName, createdAt, duration, principal));
     }
 
     private void readProductList(List<Loan> loans) {

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class Product extends FinancialContract {
     private String productName;
     private LocalDateTime createdAt;
-    private int duration;
+    private int duration; // 개월
 
     public Product(String userName, String productName, LocalDateTime createdAt, int duration) {
         super(userName);

@@ -9,12 +9,18 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class SavingController extends Controller{
     private final InputManager inputManager = new InputManager();
     private final SavingRepository savingRepository = new SavingRepository();
     private final Scanner sc = new Scanner(System.in);
+
+    private final Map<Integer, Runnable> methodMap = Map.of(
+            1, this::join,
+            2, this::getSavingSpec
+    );
 
     @Override
     public void run() {
@@ -35,14 +41,11 @@ public class SavingController extends Controller{
     }
 
     private void getService(int number) {
-        if (number == 1) {
-            join();
-        } else if (number == 2) {
-            getSavingSpec();
-        } else {
+        if (!methodMap.containsKey(number)) {
             System.out.println("잘못된 입력입니다.");
             run();
         }
+        methodMap.get(number).run();
     }
 
     private void join() {
@@ -115,8 +118,7 @@ public class SavingController extends Controller{
     }
 
     private Saving saveSavingProduct(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
-        Saving saving = new Saving(userName, productName, createdAt, duration, principal);
-        return savingRepository.save(saving);
+        return savingRepository.save(new Saving(userName, productName, createdAt, duration, principal));
     }
 
     private void readProductList(List<Saving> savings) {

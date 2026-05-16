@@ -8,12 +8,20 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AccountController extends Controller {
     private final InputManager inputManager = new InputManager();
     private final AccountRepository accountRepository = new AccountRepository();
     private final Scanner sc = new Scanner(System.in);
+
+    private final Map<Integer, Runnable> methodMap = Map.of(
+            1, this::join,
+            2, this::addMoney,
+            3, this::withdraw,
+            4, this::transfer
+    );
 
     @Override
     public void run() {
@@ -36,18 +44,11 @@ public class AccountController extends Controller {
     }
 
     private void getService(int number) {
-        if (number == 1) {
-            join();
-        } else if (number == 2) {
-            addMoney();
-        } else if (number == 3) {
-            withdraw();
-        } else if (number == 4) {
-            transfer();
-        } else {
+        if (!methodMap.containsKey(number)) {
             System.out.println("잘못된 입력입니다.");
             run();
         }
+        methodMap.get(number).run();
     }
 
     private void join() {
@@ -168,8 +169,7 @@ public class AccountController extends Controller {
     }
 
     private Account saveAccount(String userName, String accountName, BigDecimal amount, LocalDateTime createdAt) {
-        Account account = new Account(userName, accountName, amount, createdAt);
-        return accountRepository.save(account);
+        return accountRepository.save(new Account(userName, accountName, amount, createdAt));
     }
 
     private void readAccountList(List<Account> accounts) {

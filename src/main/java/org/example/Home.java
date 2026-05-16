@@ -40,14 +40,12 @@ public class Home {
     private void getService(int number) {
         shutDownIfNumberIs4(number);
 
-        Controller controller = listAdapter.getController(number);
-        controller.run();
+        listAdapter.getController(number).run();
     }
 
     private void shutDownIfNumberIs4(int number) {
         if (number == 4) {
-            Controller controller = new Controller();
-            controller.shutDown();
+            new Controller().shutDown();
         }
     }
 }

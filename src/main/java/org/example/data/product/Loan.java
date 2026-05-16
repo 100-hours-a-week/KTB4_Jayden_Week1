@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class Loan extends Product {
     private Long loanId;
-    private BigDecimal principal;
+    private BigDecimal principal; // 대출금
 
     public static final BigDecimal ANNUAL_RATE = BigDecimal.valueOf(3.5);
 

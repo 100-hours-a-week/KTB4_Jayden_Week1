@@ -5,7 +5,6 @@ import org.example.controller.Controller;
 import org.example.controller.LoanController;
 import org.example.controller.SavingController;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ListAdapter {

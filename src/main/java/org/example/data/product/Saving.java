@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class Saving extends Product{
     private Long savingId;
-    private BigDecimal principal;
+    private BigDecimal principal; // 예금액
 
     public static final BigDecimal ANNUAL_RATE = BigDecimal.valueOf(2.9);
 

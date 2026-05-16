@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 
 public class Account extends FinancialContract {
     private Long accountId;
-    private String accountName; // 계좌명
+    private String accountName;
     private BigDecimal amount; // 계좌 잔액
-    private LocalDateTime createdAt; // 계좌 개설날짜
+    private LocalDateTime createdAt;
 
     public Account(String userName, String accountName, BigDecimal amount, LocalDateTime createdAt) {
         super(userName);
