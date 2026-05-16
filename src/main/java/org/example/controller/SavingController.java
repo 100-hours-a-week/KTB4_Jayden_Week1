@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class SavingController extends Controller{
-    private final InputManager inputManager = new InputManager();
     private final SavingRepository savingRepository = new SavingRepository();
     private final Scanner sc = new Scanner(System.in);
 
@@ -34,18 +33,17 @@ public class SavingController extends Controller{
         System.out.println();
         System.out.println();
 
-        int number = inputManager.inputInt();
+        int number = InputManager.inputInt();
         System.out.println(number + "번을 선택하셨습니다.");
 
         getService(number);
     }
 
     private void getService(int number) {
-        if (!methodMap.containsKey(number)) {
+        methodMap.getOrDefault(number, () -> {
             System.out.println("잘못된 입력입니다.");
             run();
-        }
-        methodMap.get(number).run();
+        }).run();
     }
 
     private void join() {
@@ -58,10 +56,10 @@ public class SavingController extends Controller{
         System.out.print("사용자명을 입력해주세요: ");
         String userName = sc.next();
 
-        BigDecimal principal = inputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
+        BigDecimal principal = InputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
 
         System.out.print("원하시는 만기 개월을 입력해주세요: ");
-        int duration = inputManager.inputInt();
+        int duration = InputManager.inputInt();
 
         LocalDateTime createdAt = LocalDateTime.now();
 
@@ -76,7 +74,7 @@ public class SavingController extends Controller{
         System.out.println("연이율: " + Saving.ANNUAL_RATE + " %");
 
         BigDecimal interest = InterestCalculator.calculateSavingInterest(savedSavingProduct.getPrincipal(), Saving.ANNUAL_RATE, duration);
-        System.out.println("이자 금액: " + savedSavingProduct.getPrincipal().add(interest));
+        System.out.println("이자 금액: " + interest);
         System.out.println("만료시 금액: " + savedSavingProduct.getPrincipal().add(interest));
 
         super.returnHomeList();
@@ -92,7 +90,7 @@ public class SavingController extends Controller{
         readProductList(savings);
 
         System.out.println("계좌를 선택하세요.");
-        Long savingId = inputManager.inputLong(
+        Long savingId = InputManager.inputLong(
                 savings.stream()
                         .map(Saving::getSavingId)
                         .toList()
@@ -111,7 +109,7 @@ public class SavingController extends Controller{
         System.out.println("연이율: " + Saving.ANNUAL_RATE + " %");
 
         BigDecimal interest = InterestCalculator.calculateSavingInterest(findSaving.getPrincipal(), Saving.ANNUAL_RATE, findSaving.getDuration());
-        System.out.println("이자 금액: " + findSaving.getPrincipal().add(interest));
+        System.out.println("이자 금액: " + interest);
         System.out.println("만료시 금액: " + findSaving.getPrincipal().add(interest));
 
         super.returnHomeList();

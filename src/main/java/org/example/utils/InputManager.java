@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputManager {
-    private final Scanner sc = new Scanner(System.in);
+    private final static Scanner sc = new Scanner(System.in);
 
-    public int inputInt() {
+    public static int inputInt() {
 
         System.out.print("번호 선택: ");
         int result = sc.nextInt();
@@ -20,7 +20,7 @@ public class InputManager {
         return inputInt();
     }
 
-    public Long inputLong(List<Long> ids) {
+    public static Long inputLong(List<Long> ids) {
         System.out.print("번호 선택: ");
         Long result = sc.nextLong();
 
@@ -32,7 +32,7 @@ public class InputManager {
         return inputLong(ids);
     }
 
-    public BigDecimal inputMoney(String message) {
+    public static BigDecimal inputMoney(String message) {
         System.out.print(message);
         BigDecimal result = sc.nextBigDecimal();
 
@@ -44,7 +44,7 @@ public class InputManager {
         return inputMoney(message);
     }
 
-    public BigDecimal inputMoney(BigDecimal amount, String message) {
+    public static BigDecimal inputMoney(BigDecimal amount, String message) {
         System.out.print(message);
         BigDecimal result = sc.nextBigDecimal();
 
@@ -53,6 +53,6 @@ public class InputManager {
         }
 
         System.out.println("잔액이 부족합니다.");
-        return inputMoney(message);
+        return inputMoney(amount, message);
     }
 }

@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Home {
     private final ListAdapter listAdapter = new ListAdapter();
-    private final InputManager inputManager = new InputManager();
 
     public void home() {
         System.out.println("====================================");
@@ -31,7 +30,7 @@ public class Home {
         System.out.println();
         System.out.println();
 
-        int number = inputManager.inputInt();
+        int number = InputManager.inputInt();
         System.out.println(number + " 번을 선택하셨습니다.");
 
         getService(number);

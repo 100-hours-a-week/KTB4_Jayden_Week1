@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AccountController extends Controller {
-    private final InputManager inputManager = new InputManager();
     private final AccountRepository accountRepository = new AccountRepository();
     private final Scanner sc = new Scanner(System.in);
 
@@ -37,18 +36,17 @@ public class AccountController extends Controller {
         System.out.println();
         System.out.println();
 
-        int number = inputManager.inputInt();
+        int number = InputManager.inputInt();
         System.out.println(number + "번을 선택하셨습니다.");
 
         getService(number);
     }
 
     private void getService(int number) {
-        if (!methodMap.containsKey(number)) {
+        methodMap.getOrDefault(number, () -> {
             System.out.println("잘못된 입력입니다.");
             run();
-        }
-        methodMap.get(number).run();
+        }).run();
     }
 
     private void join() {
@@ -61,7 +59,7 @@ public class AccountController extends Controller {
         System.out.print("사용자명을 입력해주세요: ");
         String userName = sc.next();
 
-        BigDecimal money = inputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
+        BigDecimal money = InputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
 
         LocalDateTime createdAt = LocalDateTime.now();
 
@@ -87,13 +85,13 @@ public class AccountController extends Controller {
         readAccountList(accounts);
 
         System.out.println("계좌를 선택하세요.");
-        Long accountId = inputManager.inputLong(
+        Long accountId = InputManager.inputLong(
                 accounts.stream()
                         .map(Account::getAccountId)
                         .toList()
         );
 
-        BigDecimal money = inputManager.inputMoney("입금할 금액을 입력해주세요: ");
+        BigDecimal money = InputManager.inputMoney("입금할 금액을 입력해주세요: ");
 
         accountRepository.addMoney(accountId, money);
         Account findAccount = accountRepository.findById(accountId);
@@ -115,14 +113,14 @@ public class AccountController extends Controller {
         readAccountList(accounts);
 
         System.out.println("계좌를 선택하세요.");
-        Long accountId = inputManager.inputLong(
+        Long accountId = InputManager.inputLong(
                 accounts.stream()
                         .map(Account::getAccountId)
                         .toList()
         );
         BigDecimal amount = accountRepository.findById(accountId).getAmount();
 
-        BigDecimal money = inputManager.inputMoney(amount, "출금할 금액을 입력해주세요: ");
+        BigDecimal money = InputManager.inputMoney(amount, "출금할 금액을 입력해주세요: ");
 
         accountRepository.withdraw(accountId, money);
         Account findAccount = accountRepository.findById(accountId);
@@ -144,7 +142,7 @@ public class AccountController extends Controller {
         readAccountList(accounts);
 
         System.out.println("계좌를 선택하세요.");
-        Long accountId = inputManager.inputLong(
+        Long accountId = InputManager.inputLong(
                 accounts.stream()
                         .map(Account::getAccountId)
                         .toList()
@@ -154,7 +152,7 @@ public class AccountController extends Controller {
         System.out.print("계좌명을 입력해주세요: ");
         String toUser = sc.next();
 
-        BigDecimal money = inputManager.inputMoney(amount, "이체할 금액을 입력해주세요: ");
+        BigDecimal money = InputManager.inputMoney(amount, "이체할 금액을 입력해주세요: ");
 
         accountRepository.withdraw(accountId, money);
         Account findAccount = accountRepository.findById(accountId);

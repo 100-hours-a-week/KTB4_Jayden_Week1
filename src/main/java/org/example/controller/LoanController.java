@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class LoanController extends Controller{
-    private final InputManager inputManager = new InputManager();
     private final LoanRepository loanRepository = new LoanRepository();
     private final Scanner sc = new Scanner(System.in);
 
@@ -35,18 +34,17 @@ public class LoanController extends Controller{
         System.out.println();
         System.out.println();
 
-        int number = inputManager.inputInt();
+        int number = InputManager.inputInt();
         System.out.println(number + "번을 선택하셨습니다.");
 
         getService(number);
     }
 
     private void getService(int number) {
-        if (!methodMap.containsKey(number)) {
+        methodMap.getOrDefault(number, () -> {
             System.out.println("잘못된 입력입니다.");
             run();
-        }
-        methodMap.get(number).run();
+        }).run();
     }
 
     private void join() {
@@ -59,10 +57,10 @@ public class LoanController extends Controller{
         System.out.print("사용자명을 입력해주세요: ");
         String userName = sc.next();
 
-        BigDecimal principal = inputManager.inputMoney("대출받을 금액을 입력해주세요: ");
+        BigDecimal principal = InputManager.inputMoney("대출받을 금액을 입력해주세요: ");
 
         System.out.print("원하시는 만기 개월을 입력해주세요: ");
-        int duration = inputManager.inputInt();
+        int duration = InputManager.inputInt();
 
         LocalDateTime createdAt = LocalDateTime.now();
 
@@ -92,7 +90,7 @@ public class LoanController extends Controller{
         readProductList(loans);
 
         System.out.println("대출 목록을 선택하세요.");
-        Long loanId = inputManager.inputLong(
+        Long loanId = InputManager.inputLong(
                 loans.stream()
                         .map(Loan::getLoanId)
                         .toList()

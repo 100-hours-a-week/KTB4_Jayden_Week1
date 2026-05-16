@@ -8,7 +8,7 @@ import org.example.controller.SavingController;
 import java.util.Map;
 
 public class ListAdapter {
-    private final static Map<Integer, Controller> controllerMap = Map.of(
+    private static final Map<Integer, Controller> controllerMap = Map.of(
             1, new AccountController(),
             2, new LoanController(),
             3, new SavingController(),
@@ -16,10 +16,6 @@ public class ListAdapter {
     );
 
     public Controller getController(int number) {
-        if (!controllerMap.containsKey(number)) {
-            System.out.println("잘못된 입력입니다: " + number);
-            return new Controller();
-        }
-        return controllerMap.get(number);
+        return controllerMap.getOrDefault(number, new Controller());
     }
 }
