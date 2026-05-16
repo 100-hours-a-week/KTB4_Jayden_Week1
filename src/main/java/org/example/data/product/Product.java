@@ -1,10 +1,10 @@
 package org.example.data.product;
 
-import org.example.data.User;
+import org.example.data.FinancialContract;
 
 import java.time.LocalDateTime;
 
-public class Product extends User {
+public class Product extends FinancialContract {
     private String productName;
     private LocalDateTime createdAt;
     private int duration;

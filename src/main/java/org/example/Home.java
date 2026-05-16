@@ -32,9 +32,22 @@ public class Home {
         System.out.println();
 
         int number = inputManager.inputInt();
-
         System.out.println(number + " 번을 선택하셨습니다.");
+
+        getService(number);
+    }
+
+    private void getService(int number) {
+        shutDownIfNumberIs4(number);
+
         Controller controller = listAdapter.getController(number);
         controller.run();
+    }
+
+    private void shutDownIfNumberIs4(int number) {
+        if (number == 4) {
+            Controller controller = new Controller();
+            controller.shutDown();
+        }
     }
 }

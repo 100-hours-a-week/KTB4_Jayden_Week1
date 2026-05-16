@@ -1,11 +1,11 @@
 package org.example.data.account;
 
-import org.example.data.User;
+import org.example.data.FinancialContract;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Account extends User {
+public class Account extends FinancialContract {
     private Long accountId;
     private String accountName; // 계좌명
     private BigDecimal amount; // 계좌 잔액

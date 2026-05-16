@@ -1,9 +1,9 @@
 package org.example.data;
 
-public class User {
+public class FinancialContract {
     private String userName;
 
-    public User(String userName) {
+    public FinancialContract(String userName) {
         this.userName = userName;
     }
 
