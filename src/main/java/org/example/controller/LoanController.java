@@ -63,7 +63,7 @@ public class LoanController extends Controller{
 
         LocalDateTime createdAt = LocalDateTime.now();
 
-        Loan savedLoanAccount = saveLoanAccount(userName, productName, createdAt, duration, principal);
+        Loan savedLoanAccount = saveLoanProduct(userName, productName, createdAt, duration, principal);
 
         System.out.println();
         System.out.println("계좌명: " + savedLoanAccount.getProductName());
@@ -86,7 +86,7 @@ public class LoanController extends Controller{
         System.out.println();
 
         List<Loan> loans = loanRepository.findAll();
-        readLoanList(loans);
+        readProductList(loans);
 
         System.out.println("대출 목록을 선택하세요.");
         Long loanId = inputManager.inputLong(
@@ -113,12 +113,12 @@ public class LoanController extends Controller{
         super.returnHomeList();
     }
 
-    private Loan saveLoanAccount(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
+    private Loan saveLoanProduct(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
         Loan loan = new Loan(userName, productName, createdAt, duration, principal);
         return loanRepository.save(loan);
     }
 
-    private void readLoanList(List<Loan> loans) {
+    private void readProductList(List<Loan> loans) {
         loans.forEach(loan -> System.out.println("[" + loan.getLoanId() + "] " + loan.getProductName() + ", 연이자: " + Loan.ANNUAL_RATE));
         System.out.println();
     }

@@ -62,31 +62,31 @@ public class SavingController extends Controller{
 
         LocalDateTime createdAt = LocalDateTime.now();
 
-        Saving savedSavingAccount = saveSavingAccount(productName, userName, createdAt, duration, principal);
-        System.out.println("계좌명: " + savedSavingAccount.getProductName());
-        System.out.println("사용자명: " + savedSavingAccount.getUserName());
-        System.out.println("입금액: " + savedSavingAccount.getPrincipal());
+        Saving savedSavingProduct = saveSavingProduct(productName, userName, createdAt, duration, principal);
+        System.out.println("계좌명: " + savedSavingProduct.getProductName());
+        System.out.println("사용자명: " + savedSavingProduct.getUserName());
+        System.out.println("입금액: " + savedSavingProduct.getPrincipal());
 
-        System.out.println("가입일: " + savedSavingAccount.getCreatedAt().truncatedTo(ChronoUnit.DAYS));
-        System.out.println("만기일: " + savedSavingAccount.getCreatedAt().plusMonths(savedSavingAccount.getDuration()).truncatedTo(ChronoUnit.DAYS));
+        System.out.println("가입일: " + savedSavingProduct.getCreatedAt().truncatedTo(ChronoUnit.DAYS));
+        System.out.println("만기일: " + savedSavingProduct.getCreatedAt().plusMonths(savedSavingProduct.getDuration()).truncatedTo(ChronoUnit.DAYS));
 
         System.out.println("연이율: " + Saving.ANNUAL_RATE + " %");
 
-        BigDecimal interest = InterestCalculator.calculateSavingInterest(savedSavingAccount.getPrincipal(), Saving.ANNUAL_RATE, duration);
-        System.out.println("이자 금액: " + savedSavingAccount.getPrincipal().add(interest));
-        System.out.println("만료시 금액: " + savedSavingAccount.getPrincipal().add(interest));
+        BigDecimal interest = InterestCalculator.calculateSavingInterest(savedSavingProduct.getPrincipal(), Saving.ANNUAL_RATE, duration);
+        System.out.println("이자 금액: " + savedSavingProduct.getPrincipal().add(interest));
+        System.out.println("만료시 금액: " + savedSavingProduct.getPrincipal().add(interest));
 
         super.returnHomeList();
     }
 
     private void getSavingSpec() {
         System.out.println("==========================");
-        System.out.println("[2] 조회를 선택하셨습니다.");
+        System.out.println("[2] 조회 선택하셨습니다.");
         System.out.println();
         System.out.println();
 
         List<Saving> savings = savingRepository.findAll();
-        readAccountList(savings);
+        readProductList(savings);
 
         System.out.println("계좌를 선택하세요.");
         Long savingId = inputManager.inputLong(
@@ -114,12 +114,12 @@ public class SavingController extends Controller{
         super.returnHomeList();
     }
 
-    private Saving saveSavingAccount(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
+    private Saving saveSavingProduct(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
         Saving saving = new Saving(userName, productName, createdAt, duration, principal);
         return savingRepository.save(saving);
     }
 
-    private void readAccountList(List<Saving> savings) {
+    private void readProductList(List<Saving> savings) {
         savings.forEach(saving -> System.out.println("[" + saving.getSavingId() + "] " + saving.getProductName() + ", 연이율: " + Saving.ANNUAL_RATE));
         System.out.println();
     }
