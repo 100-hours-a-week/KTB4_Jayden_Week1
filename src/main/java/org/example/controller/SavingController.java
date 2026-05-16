@@ -34,7 +34,18 @@ public class SavingController extends Controller{
         getService(number);
     }
 
-    public void join() {
+    private void getService(int number) {
+        if (number == 1) {
+            join();
+        } else if (number == 2) {
+            getSavingSpec();
+        } else {
+            System.out.println("잘못된 입력입니다.");
+            run();
+        }
+    }
+
+    private void join() {
         System.out.println("==========================");
         System.out.println("[1] 계좌개설을 선택하셨습니다.");
 
@@ -68,9 +79,9 @@ public class SavingController extends Controller{
         super.returnHomeList();
     }
 
-    public void getSavingSpec() {
+    private void getSavingSpec() {
         System.out.println("==========================");
-        System.out.println("[3] 출금을 선택하셨습니다.");
+        System.out.println("[2] 조회를 선택하셨습니다.");
         System.out.println();
         System.out.println();
 
@@ -103,18 +114,8 @@ public class SavingController extends Controller{
         super.returnHomeList();
     }
 
-    private void getService(int number) {
-        if (number == 1) {
-            join();
-        } else if (number == 2) {
-            getSavingSpec();
-        } else {
-            System.out.println("잘못된 입력입니다.");
-            run();
-        }
-    }
-    private Saving saveSavingAccount(String productName, String userName, LocalDateTime createdAt, int duration, BigDecimal principal) {
-        Saving saving = new Saving(productName, userName, createdAt, duration, principal);
+    private Saving saveSavingAccount(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
+        Saving saving = new Saving(userName, productName, createdAt, duration, principal);
         return savingRepository.save(saving);
     }
 

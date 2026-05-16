@@ -35,7 +35,22 @@ public class AccountController extends Controller {
         getService(number);
     }
 
-    public void join() {
+    private void getService(int number) {
+        if (number == 1) {
+            join();
+        } else if (number == 2) {
+            addMoney();
+        } else if (number == 3) {
+            withdraw();
+        } else if (number == 4) {
+            transfer();
+        } else {
+            System.out.println("잘못된 입력입니다.");
+            run();
+        }
+    }
+
+    private void join() {
         System.out.println("==========================");
         System.out.println("[1] 계좌개설을 선택하셨습니다.");
 
@@ -61,7 +76,7 @@ public class AccountController extends Controller {
         super.returnHomeList();
     }
 
-    public void addMoney() {
+    private void addMoney() {
         System.out.println("==========================");
         System.out.println("[2] 입금을 선택하셨습니다.");
         System.out.println();
@@ -89,7 +104,7 @@ public class AccountController extends Controller {
         super.returnHomeList();
     }
 
-    public void withdraw() {
+    private void withdraw() {
         System.out.println("==========================");
         System.out.println("[3] 출금을 선택하셨습니다.");
         System.out.println();
@@ -118,7 +133,7 @@ public class AccountController extends Controller {
         super.returnHomeList();
     }
 
-    public void transfer() {
+    private void transfer() {
         System.out.println("==========================");
         System.out.println("[4] 이체을 선택하셨습니다.");
         System.out.println();
@@ -150,21 +165,6 @@ public class AccountController extends Controller {
         System.out.println("계좌 잔액: " + findAccount.getAmount());
 
         super.returnHomeList();
-    }
-
-    private void getService(int number) {
-        if (number == 1) {
-            join();
-        } else if (number == 2) {
-            addMoney();
-        } else if (number == 3) {
-            withdraw();
-        } else if (number == 4) {
-            transfer();
-        } else {
-            System.out.println("잘못된 입력입니다.");
-            run();
-        }
     }
 
     private Account saveAccount(String userName, String accountName, BigDecimal amount, LocalDateTime createdAt) {

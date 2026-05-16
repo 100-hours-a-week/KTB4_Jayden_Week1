@@ -9,8 +9,8 @@ public class Loan extends Product {
 
     public static final BigDecimal ANNUAL_RATE = BigDecimal.valueOf(3.5);
 
-    public Loan(String productName, String userName, LocalDateTime createdAt, int duration, BigDecimal principal) {
-        super(productName, userName, createdAt, duration);
+    public Loan(String userName, String productName, LocalDateTime createdAt, int duration, BigDecimal principal) {
+        super(userName, productName, createdAt, duration);
         this.principal = principal;
     }
 
