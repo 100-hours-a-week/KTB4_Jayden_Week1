@@ -2,6 +2,7 @@ package org.example.repository;
 
 import org.example.data.account.Account;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class AccountRepository {
@@ -23,17 +24,17 @@ public class AccountRepository {
         return new ArrayList<>(store.values());
     }
 
-    public void addMoney(Long accountId, Long money) {
+    public void addMoney(Long accountId, BigDecimal money) {
         Account account = findById(accountId);
-        Long amount = account.getAmount();
-        account.setAmount(amount + money);
+        BigDecimal amount = account.getAmount();
+        account.setAmount(amount.add(money));
         store.put(accountId, account);
     }
 
-    public void withdraw(Long accountId, Long money) {
+    public void withdraw(Long accountId, BigDecimal money) {
         Account account = findById(accountId);
-        Long amount = account.getAmount();
-        account.setAmount(amount - money);
+        BigDecimal amount = account.getAmount();
+        account.setAmount(amount.subtract(money));
         store.put(accountId, account);
     }
 }

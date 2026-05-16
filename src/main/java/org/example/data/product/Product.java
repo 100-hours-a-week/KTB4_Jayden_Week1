@@ -1,13 +1,42 @@
 package org.example.data.product;
 
-import java.time.Duration;
+import org.example.data.User;
+
 import java.time.LocalDateTime;
 
-public class Product {
-    private Long id;
+public class Product extends User {
     private String productName;
-    private Long amount;
-    private int interest;
     private LocalDateTime createdAt;
-    private Duration duration;
+    private int duration;
+
+    public Product(String userName, String productName, LocalDateTime createdAt, int duration) {
+        super(userName);
+        this.productName = productName;
+        this.createdAt = createdAt;
+        this.duration = duration;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }

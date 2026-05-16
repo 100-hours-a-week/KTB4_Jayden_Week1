@@ -1,5 +1,6 @@
 package org.example.utils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,11 +32,11 @@ public class InputManager {
         return inputLong(ids);
     }
 
-    public long inputMoney(String message) {
+    public BigDecimal inputMoney(String message) {
         System.out.print(message);
-        long result = sc.nextLong();
+        BigDecimal result = sc.nextBigDecimal();
 
-        if (result >= 0) {
+        if (result.compareTo(BigDecimal.ZERO) >= 0) {
             return result;
         }
 
@@ -43,16 +44,15 @@ public class InputManager {
         return inputMoney(message);
     }
 
-    public long inputMoney(Long amount, String message) {
+    public BigDecimal inputMoney(BigDecimal amount, String message) {
         System.out.print(message);
-        long result = sc.nextLong();
+        BigDecimal result = sc.nextBigDecimal();
 
-        if (result >= 0 && result <= amount) {
+        if (result.compareTo(BigDecimal.ZERO) >= 0 && result.compareTo(amount) <= 0) {
             return result;
         }
 
         System.out.println("잔액이 부족합니다.");
         return inputMoney(message);
     }
-
 }

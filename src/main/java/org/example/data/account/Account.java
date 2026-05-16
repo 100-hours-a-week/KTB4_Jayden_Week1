@@ -1,21 +1,19 @@
 package org.example.data.account;
 
+import org.example.data.User;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Account {
+public class Account extends User {
     private Long accountId;
     private String accountName; // 계좌명
-    private String userName; // 소유자
-    private Long amount; // 계좌 잔액
+    private BigDecimal amount; // 계좌 잔액
     private LocalDateTime createdAt; // 계좌 개설날짜
 
-    // 생성시 반드시 초기값을 넣도록 막아두기
-    private Account() {
-    }
-
-    public Account(String accountName, String userName, Long amount, LocalDateTime createdAt) {
+    public Account(String userName, String accountName, BigDecimal amount, LocalDateTime createdAt) {
+        super(userName);
         this.accountName = accountName;
-        this.userName = userName;
         this.amount = amount;
         this.createdAt = createdAt;
     }
@@ -36,19 +34,11 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Long getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

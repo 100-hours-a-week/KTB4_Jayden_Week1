@@ -10,8 +10,6 @@ public class Home {
     private final ListAdapter listAdapter = new ListAdapter();
     private final InputManager inputManager = new InputManager();
 
-
-
     public void home() {
         System.out.println("====================================");
         System.out.println("안녕하세요. 반갑습니다.");
@@ -28,7 +26,7 @@ public class Home {
 
         System.out.println("[1] 내 계좌/입출금");
         System.out.println("[2] 대출");
-        System.out.println("[3] 예적금");
+        System.out.println("[3] 예금");
         System.out.println("[4] 종료");
         System.out.println();
         System.out.println();

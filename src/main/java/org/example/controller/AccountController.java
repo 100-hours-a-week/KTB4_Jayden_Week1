@@ -4,6 +4,7 @@ import org.example.data.account.Account;
 import org.example.repository.AccountRepository;
 import org.example.utils.InputManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -44,17 +45,17 @@ public class AccountController extends Controller {
         System.out.print("사용자명을 입력해주세요: ");
         String userName = sc.next();
 
-        Long money = inputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
+        BigDecimal money = inputManager.inputMoney("초기 입금할 금액을 입력해주세요: ");
 
         LocalDateTime createdAt = LocalDateTime.now();
 
-        Account savedAccount = saveAccount(accountName, userName, money, createdAt);
+        Account savedAccount = saveAccount(userName, accountName, money, createdAt);
 
         System.out.println("개설이 완료되었습니다.");
         System.out.println("계좌명: " + savedAccount.getAccountName());
         System.out.println("사용자명: " + savedAccount.getUserName());
         System.out.println("잔액: " + savedAccount.getAmount());
-        System.out.println("개설일: " + savedAccount.getCreatedAt().truncatedTo(ChronoUnit.SECONDS));
+        System.out.println("개설일: " + savedAccount.getCreatedAt().truncatedTo(ChronoUnit.DAYS));
         System.out.println();
 
         super.returnHomeList();
@@ -76,7 +77,7 @@ public class AccountController extends Controller {
                         .toList()
         );
 
-        Long money = inputManager.inputMoney("입금할 금액을 입력해주세요: ");
+        BigDecimal money = inputManager.inputMoney("입금할 금액을 입력해주세요: ");
 
         accountRepository.addMoney(accountId, money);
         Account findAccount = accountRepository.findById(accountId);
@@ -103,9 +104,9 @@ public class AccountController extends Controller {
                         .map(Account::getAccountId)
                         .toList()
         );
-        Long amount = accountRepository.findById(accountId).getAmount();
+        BigDecimal amount = accountRepository.findById(accountId).getAmount();
 
-        Long money = inputManager.inputMoney(amount, "출금할 금액을 입력해주세요: ");
+        BigDecimal money = inputManager.inputMoney(amount, "출금할 금액을 입력해주세요: ");
 
         accountRepository.withdraw(accountId, money);
         Account findAccount = accountRepository.findById(accountId);
@@ -132,12 +133,12 @@ public class AccountController extends Controller {
                         .map(Account::getAccountId)
                         .toList()
         );
-        Long amount = accountRepository.findById(accountId).getAmount();
+        BigDecimal amount = accountRepository.findById(accountId).getAmount();
 
         System.out.print("계좌명을 입력해주세요: ");
         String toUser = sc.next();
 
-        Long money = inputManager.inputMoney(amount, "이체할 금액을 입력해주세요: ");
+        BigDecimal money = inputManager.inputMoney(amount, "이체할 금액을 입력해주세요: ");
 
         accountRepository.withdraw(accountId, money);
         Account findAccount = accountRepository.findById(accountId);
@@ -166,8 +167,8 @@ public class AccountController extends Controller {
         }
     }
 
-    private Account saveAccount(String accountName, String userName, Long money, LocalDateTime createdAt) {
-        Account account = new Account(accountName, userName, money, createdAt);
+    private Account saveAccount(String userName, String accountName, BigDecimal amount, LocalDateTime createdAt) {
+        Account account = new Account(userName, accountName, amount, createdAt);
         return accountRepository.save(account);
     }
 
