@@ -3,7 +3,6 @@ package org.example.controller;
 import org.example.Home;
 
 public class Controller {
-        private final Home home = new Home();
 
     public void run() {
         System.out.println("원래 화면으로 돌아갑니다.");
@@ -16,6 +15,7 @@ public class Controller {
     }
 
     protected void returnHomeList() {
+        Home home = new Home();
         home.homeList();
     }
 }

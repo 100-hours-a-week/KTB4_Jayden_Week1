@@ -8,7 +8,7 @@ import org.example.controller.SavingController;
 import java.util.Map;
 
 public class ListAdapter {
-    private static final Map<Integer, Controller> controllerMap = Map.of(
+    private final Map<Integer, Controller> controllerMap = Map.of(
             1, new AccountController(),
             2, new LoanController(),
             3, new SavingController(),
