@@ -106,7 +106,7 @@ public class LoanController extends Controller{
         System.out.println("가입일: " + findLoanId.getCreatedAt().truncatedTo(ChronoUnit.DAYS));
         System.out.println("만기일: " + findLoanId.getCreatedAt().plusMonths(findLoanId.getDuration()).truncatedTo(ChronoUnit.DAYS));
 
-        System.out.println("연이자: " + Saving.ANNUAL_RATE + " %");
+        System.out.println("연이자: " + Loan.ANNUAL_RATE + " %");
 
         BigDecimal interest = InterestCalculator.calculateLoanInterest(findLoanId.getPrincipal(), Saving.ANNUAL_RATE);
         System.out.println("월이자 금액: " + interest);

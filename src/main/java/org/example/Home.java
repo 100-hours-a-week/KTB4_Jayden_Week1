@@ -4,7 +4,6 @@ import org.example.controller.Controller;
 import org.example.adapter.ListAdapter;
 import org.example.utils.InputManager;
 
-import java.util.Scanner;
 
 public class Home {
     private final ListAdapter listAdapter = new ListAdapter();

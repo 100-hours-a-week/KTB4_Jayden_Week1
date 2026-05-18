@@ -63,7 +63,7 @@ public class SavingController extends Controller{
 
         LocalDateTime createdAt = LocalDateTime.now();
 
-        Saving savedSavingProduct = saveSavingProduct(productName, userName, createdAt, duration, principal);
+        Saving savedSavingProduct = saveSavingProduct(userName, productName, createdAt, duration, principal);
         System.out.println("계좌명: " + savedSavingProduct.getProductName());
         System.out.println("사용자명: " + savedSavingProduct.getUserName());
         System.out.println("입금액: " + savedSavingProduct.getPrincipal());
